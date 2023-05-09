@@ -60,7 +60,10 @@ const select = {
       thisProduct.data = data;
       
       thisProduct.renderInMenu();
+      thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
 
       console.log('new Product:', thisProduct);
     }
@@ -80,6 +83,18 @@ const select = {
       /*add element to menu*/
       menuContainer.appendChild(this.element);
       
+    }
+
+    getElements(){
+      const thisProduct = this;
+    
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+
+      //console.log('formInputs', thisProduct);
     }
 
     initAccordion(){
@@ -108,6 +123,19 @@ const select = {
       });
   
     }
+
+    initOrderForm(){
+      const thisProduct = this;
+      console.log('initOrderForm', thisProduct)
+    }
+
+    processOrder(){
+      const thisProduct = this;
+      
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      console.log('formData', formData);
+    }
+
   }
 
   const app = {
