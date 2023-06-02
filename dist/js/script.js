@@ -204,6 +204,11 @@ const select = {
       thisProduct.priceElem.innerHTML = price;
     }
 
+    initAmountWidget(){
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new AmountWidget (thisProduct.amountWidgetElem);
+    }
   }
 
   class AmountWidget{
@@ -214,12 +219,6 @@ const select = {
 
       console.log('AmountWidget:' , thisWidget);  
       console.log('constructor arguments:' , element);
-    }
-    
-    initAmountWidget(){
-      const thisProduct = this;
-
-      thisProduct.amountWidget = new AmountWidget (thisProduct.amountWidgetElem);
     }
 
     getElements(element){
