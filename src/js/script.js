@@ -64,6 +64,7 @@ const select = {
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
       thisProduct.processOrder();
+      thisProduct.initAmountWidget();
 
       console.log('new Product:', thisProduct);
     }
@@ -93,6 +94,7 @@ const select = {
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
 
       //console.log('formInputs', thisProduct);
     }
@@ -157,18 +159,21 @@ const select = {
     
       // for every category (param)...
       for(let paramId in thisProduct.data.params) {
+
         // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
         const param = thisProduct.data.params[paramId];
         console.log(paramId, param);
     
         // for every option in this category
         for(let optionId in param.options) {
+
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
           console.log(optionId, option);
           const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
           const imageSelected = '.' + paramId + '-' + optionId;
           const optionImage = thisProduct.element.querySelector(select.menuProduct.imageWrapper).querySelector(imageSelected);
+          
           if(formData[paramId] && formData[paramId].includes(optionId)) {
             // check if the option is not default
             if(option.default !== true) {
@@ -201,6 +206,46 @@ const select = {
 
   }
 
+  class AmountWidget{
+    constructor (element){
+      const thisWidget = this;
+        
+      thisWidget.getElements(element);
+
+      console.log('AmountWidget:' , thisWidget);  
+      console.log('constructor arguments:' , element);
+    }
+    
+    initAmountWidget(){
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new AmountWidget (thisProduct.amountWidgetElem);
+    }
+
+    getElements(element){
+      const thisWidget = this;
+
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+
+    setValue(value){
+      const thisWidget = this;
+      
+      const newValue = parseInt(value);
+      
+      /*TODO: Add validation*/
+      if(thisWidget.value !== newValue && !isNaN(newValue)) {
+        thisWidget.value = newValue;
+      }
+      
+      thisWidget.value = newValue;
+      thisWidget.input.value = thisWidget.value;
+    }
+}
+  
   const app = {
     initData: function(){
       const thisApp = this;
