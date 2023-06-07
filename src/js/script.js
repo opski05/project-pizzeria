@@ -44,7 +44,7 @@ const select = {
     amountWidget: {
       defaultValue: 1,
       defaultMin: 1,
-      defaultMax: 9,
+      defaultMax: 10,
     }
   };
 
@@ -216,9 +216,12 @@ const select = {
       const thisWidget = this;
         
       thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value);
 
       console.log('AmountWidget:' , thisWidget);  
       console.log('constructor arguments:' , element);
+
+      thisWidget.initActions();
     }
 
     getElements(element){
@@ -236,12 +239,44 @@ const select = {
       const newValue = parseInt(value);
       
       /*TODO: Add validation*/
-      if(thisWidget.value !== newValue && !isNaN(newValue)) {
+      /*if(thisWidget.value !== newValue && !isNaN(newValue)) {
         thisWidget.value = newValue;
       }
       
       thisWidget.value = newValue;
       thisWidget.input.value = thisWidget.value;
+    }*/
+
+      if (!isNaN(newValue)) {
+        if (newValue < settings.amountWidget.defaultMin) {
+          thisWidget.value = settings.amountWidget.defaultMin;
+        } else if (newValue > settings.amountWidget.defaultMax) {
+          thisWidget.value = settings.amountWidget.defaultMax;
+        } else {
+          thisWidget.value = newValue;
+        }
+      } else {
+        thisWidget.value = settings.amountWidget.defaultValue;
+      }
+          
+      thisWidget.input.value = thisWidget.value;
+    }
+    
+
+    initActions(){
+      const thisWidget = this;
+
+      thisWidget.input.addEventListener('change', () => {
+        thisWidget.setValue(thisWidget.input.value);
+      });
+      thisWidget.linkDecrease.addEventListener('click', (event) => {
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value - 1);
+      });
+      thisWidget.linkIncrease.addEventListener('click', (event) => {
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value + 1);
+      });
     }
 }
   
