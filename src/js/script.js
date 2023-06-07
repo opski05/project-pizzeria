@@ -208,6 +208,10 @@ const select = {
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget (thisProduct.amountWidgetElem);
+
+      thisProduct.amountWidgetElem.addEventListener('updated', () => {
+        thisProduct.processOrder();
+      });
     }
   }
 
@@ -243,9 +247,9 @@ const select = {
         thisWidget.value = newValue;
       }
       
-      thisWidget.value = newValue;
-      thisWidget.input.value = thisWidget.value;
-    }*/
+        thisWidget.value = newValue;
+        thisWidget.input.value = thisWidget.value;
+      }*/
 
       if (!isNaN(newValue)) {
         if (newValue < settings.amountWidget.defaultMin) {
@@ -260,6 +264,7 @@ const select = {
       }
           
       thisWidget.input.value = thisWidget.value;
+      thisWidget.announce();
     }
     
 
@@ -277,6 +282,14 @@ const select = {
         event.preventDefault();
         thisWidget.setValue(thisWidget.value + 1);
       });
+    }
+
+    announce(){
+      const thisWidget = this;
+
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
+
     }
 }
   
