@@ -63,8 +63,8 @@ const select = {
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
-      thisProduct.processOrder();
       thisProduct.initAmountWidget();
+      thisProduct.processOrder();
 
       console.log('new Product:', thisProduct);
     }
@@ -208,8 +208,6 @@ const select = {
       thisProduct.priceElem.innerHTML = price;
     }
 
-    
-
     initAmountWidget(){
       const thisProduct = this;
 
@@ -273,7 +271,6 @@ const select = {
       thisWidget.announce();
     }
     
-
     initActions(){
       const thisWidget = this;
 
