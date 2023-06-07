@@ -199,10 +199,16 @@ const select = {
           }
         }
       }
-    
+      
+
+      // multiply price by the amount value
+      price *= thisProduct.amountWidget.value;
+      
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
     }
+
+    
 
     initAmountWidget(){
       const thisProduct = this;
@@ -291,6 +297,7 @@ const select = {
       thisWidget.element.dispatchEvent(event);
 
     }
+    
 }
   
   const app = {
