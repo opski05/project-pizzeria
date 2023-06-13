@@ -92,7 +92,7 @@ const select = {
       thisProduct.initAmountWidget();
       thisProduct.processOrder();
 
-      console.log('new Product:', thisProduct);
+      //console.log('new Product:', thisProduct);
     }
 
     renderInMenu(){
@@ -253,10 +253,14 @@ const select = {
 
     prepareCartProduct(){
       const thisProduct = this;
-
+      console.log(thisProduct);
+      
       const productSummary = {
-        thisProduct.id = id;
+        id: thisProduct.id,
+        name: thisProduct.data.name,
+        amount: thisProduct.amountWidget.value,
       };
+      return productSummary;
     }
   }
 
