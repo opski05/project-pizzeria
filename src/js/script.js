@@ -170,6 +170,7 @@ const select = {
       thisProduct.cartButton.addEventListener('click', function(event){
         event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
       });
     }
 
@@ -242,6 +243,20 @@ const select = {
       thisProduct.amountWidgetElem.addEventListener('updated', () => {
         thisProduct.processOrder();
       });
+    }
+
+    addToCart(){
+      const thisProduct = this;
+
+      app.cart.add(thisProduct);
+    }
+
+    prepareCartProduct(){
+      const thisProduct = this;
+
+      const productSummary = {
+        thisProduct.id = id;
+      };
     }
   }
 
@@ -346,10 +361,16 @@ const select = {
     
     initActions(){
       const thisCart = this;
-      
+
       thisCart.dom.toggleTrigger.addEventListener('click', () =>{
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
+    }
+
+    add(menuProduct){
+      //const thisCart = this;
+
+      console.log('adding product' , menuProduct);
     }
   }
   
