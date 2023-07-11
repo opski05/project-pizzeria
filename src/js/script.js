@@ -473,6 +473,18 @@ const select = {
 
       console.log('thisCart.totalPrice: ', thisCart.dom.totalPrice);
     }
+
+    remove (thisCartProduct){
+      const thisCart = this;
+
+      const indexOfThisCartProduct = thisCart.products.indexOf(thisCartProduct);
+      thisCart.splice(indexOfThisCartProduct, 1);
+
+      /* USUWANIE ELEMENTU DOM
+      const thisCart = document.querySelector('div.gallery');
+        galleryDiv.remove();
+    }
+    */
   }
   
   class CartProduct{
@@ -487,6 +499,7 @@ const select = {
 
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget();
+      thisCartProduct.initActions();
 
       console.log(thisCartProduct);
     }
@@ -513,6 +526,34 @@ const select = {
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
       });
     }
+
+    remove(){
+      const thisCartProduct = this;
+
+      const event = new CustomEvent ('remove' , {
+        bubbles: true,
+        detail: {
+          cartProduct: thisCartProduct,
+        },
+      });
+
+      thisCartProduct.dom.wrapper.dispatchEvent(event);
+    }
+
+    initActions(){
+      const thisCartProduct = this;
+
+      thisCartProduct.dom.edit.addEventListener('clickd', (event) => {
+        event.preventDefault();
+      });
+
+      thisCartProduct.dom.remove.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        thisCartProduct.remove();
+      });
+    }
+
   }
   
   const app = {
