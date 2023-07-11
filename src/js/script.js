@@ -415,6 +415,10 @@ const select = {
       thisCart.dom.productList.addEventListener('updated', () => {
         thisCart.update();
       });
+
+      thisCart.dom.productList.addEventListener('remove', (event) => {
+        thisCart.remove(event.detail.cartProduct)
+      });
     }
 
     add(menuProduct) {
@@ -477,14 +481,14 @@ const select = {
     remove (thisCartProduct){
       const thisCart = this;
 
-      const indexOfThisCartProduct = thisCart.products.indexOf(thisCartProduct);
-      thisCart.splice(indexOfThisCartProduct, 1);
+      thisCartProduct.dom.wrapper.remove();
 
-      /* USUWANIE ELEMENTU DOM
-      const thisCart = document.querySelector('div.gallery');
-        galleryDiv.remove();
+      const indexOfThisCartProduct = thisCart.products.indexOf(thisCartProduct);
+      thisCart.products.splice(indexOfThisCartProduct, 1);
+
+      thisCart.update();
     }
-    */
+
   }
   
   class CartProduct{
