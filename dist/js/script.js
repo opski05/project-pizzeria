@@ -582,12 +582,12 @@ const select = {
 
           /*save parsedResponse as thisApp.data.products */
           thisApp.data.products = parsedResponse;
+          console.log('thisApp.data' , JSON.stringify(thisApp.data));
 
           /*execute initMenu method */
           thisApp.initMenu();
         });
       
-        console.log('thisApp.data' , JSON.stringify(thisApp.data));
     },
 
     initMenu: function(){
