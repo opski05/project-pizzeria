@@ -514,7 +514,7 @@ const select = {
         subtotalPrice: this.subtotalPrice,
         totalNumber: this.totalNumber,
         deliveryFee: this.deliveryFee,
-        products: this.CartProduct.params,
+        products: [],
       }
 
       for(let prod of thisCart.products) {
@@ -601,7 +601,7 @@ const select = {
         thisCartProduct.remove();
       });
     }
-/* dodane dzisiaj */ 
+
     getData(){
       const thisCartProduct = this;
 
